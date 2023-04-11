@@ -1,11 +1,13 @@
 from flask import Flask
-from flask_restful import Api
+from flask_restful import Api, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 db = SQLAlchemy(app)
+
+parser = reqparse.RequestParser()
 
 
 class Movie(db.Model):
@@ -34,6 +36,6 @@ class Movie(db.Model):
     def __str__(self) -> str:
         return super().__str__()
     
-    
+
 with app.app_context():
     db.create_all()
